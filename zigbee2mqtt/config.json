@@ -1,6 +1,6 @@
 {
   "name": "Zigbee2MQTT_Exterieur",
-  "version": "2.14.3-1",
+  "version": "2.14.3-2",
   "slug": "zigbee2mqtt_Exterieur",
   "description": "Use your ZigBee devices without the vendor's bridge or gateway",
   "breaking_versions": [
@@ -48,7 +48,7 @@
     "8099/tcp": null
   },
   "ports_description": {
-    "8485/tcp": "Socat tcp-listen port",
+    "8486/tcp": "Socat tcp-listen port",
     "8099/tcp": "Frontend tcp-listen port"
   },
   "options": {
