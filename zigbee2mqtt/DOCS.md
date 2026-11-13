@@ -1,31 +1,31 @@
-# Pairing
+# Appairage
 
-By default the app has `permit_join` set to `false`. To allow devices to join you need to activate this after the app has started. You can now use the [built-in frontend](https://www.zigbee2mqtt.io/information/frontend.html) to achieve this. For details on how to enable the built-in frontent see the next section.
+Par défaut, l'application a `permit_join` réglé sur `false`. Pour permettre aux appareils de se connecter, vous devez l'activer une fois l'application démarrée. Vous pouvez désormais utiliser l'[interface intégrée](https://www.zigbee2mqtt.io/information/frontend.html) pour cela. Pour les détails sur l'activation de l'interface intégrée, voir la section suivante.
 
-# Enabling the built-in frontend
+# Activer l'interface intégrée
 
-Enable `ingress` to have the frontend available in your UI: **Settings → Apps → Zigbee2MQTT → Show in sidebar**. You can find more details about the feature on the [Zigbee2MQTT documentation](https://www.zigbee2mqtt.io/information/frontend.html).
+Activez `ingress` pour disposer de l'interface dans votre UI : **Paramètres → Apps → Zigbee2MQTT → Afficher dans la barre latérale**. Vous trouverez plus de détails sur cette fonctionnalité dans la [documentation de Zigbee2MQTT](https://www.zigbee2mqtt.io/information/frontend.html).
 
 # Configuration
 
-## Onboarding
+## Onboarding (première configuration)
 
-[Onboarding](https://www.zigbee2mqtt.io/guide/getting-started/#onboarding) allows you to setup Zigbee2MQTT without having to manually enter the details in the app configuration page. When starting the app with a brand new install (no configuration present), the frontend will show a quick setup page, allowing you to select various settings for Zigbee2MQTT to be able to start.
+L'[onboarding](https://www.zigbee2mqtt.io/guide/getting-started/#onboarding) permet de configurer Zigbee2MQTT sans avoir à saisir manuellement les informations dans la page de configuration de l'application. Lorsque l'application démarre avec une installation toute neuve (aucune configuration présente), l'interface affiche une page de configuration rapide qui vous permet de choisir les différents paramètres nécessaires au démarrage de Zigbee2MQTT.
 
 > [!NOTE]
-> Successful detection of adapters, to select from, may vary based on your setup/network. You may have to enter these [details manually](https://www.zigbee2mqtt.io/guide/configuration/adapter-settings.html#basic-configuration) on the page instead.
+> La détection des adaptateurs proposés dans la liste peut varier selon votre installation/réseau. Il se peut que vous deviez saisir ces [informations manuellement](https://www.zigbee2mqtt.io/guide/configuration/adapter-settings.html#basic-configuration) sur la page à la place.
 
 > [!TIP]
-> You can force the onboarding to re-run (e.g. changing adapter) using the toggle available in the app configuration page (visible after checking `Show unused optional configuration options`). This will force onboarding to run even after you have successfully configured it for the first time. Make sure to disable it once done.
+> Vous pouvez forcer le ré-lancement de l'onboarding (par ex. pour changer d'adaptateur) à l'aide de l'interrupteur disponible dans la page de configuration de l'application (visible après avoir coché `Afficher les options de configuration facultatives inutilisées`). Cela forcera l'exécution de l'onboarding même après une première configuration réussie. Pensez à le désactiver une fois terminé.
 
-## Manual
+## Manuelle
 
-Configuration required to startup Zigbee2MQTT is available from the app configuration. The rest of the options can be configured via the Zigbee2MQTT frontend.
+La configuration requise pour démarrer Zigbee2MQTT est disponible dans la configuration de l'application. Les autres options peuvent être configurées via l'interface de Zigbee2MQTT.
 
 > [!CAUTION]
-> Settings configured through the app configuration page will take precedence over settings in the `configuration.yaml` page (e.g. you set `rtscts: false` in app configuration page and `rtscts: true` in `configuration.yaml`, `rtscts: false` will be used). _If you want to control the entire configuration through YAML, remove them from the app configuration page._
+> Les paramètres définis via la page de configuration de l'application ont priorité sur ceux du fichier `configuration.yaml` (par ex. si vous définissez `rtscts: false` dans la page de configuration de l'application et `rtscts: true` dans `configuration.yaml`, c'est `rtscts: false` qui sera utilisé). _Si vous voulez contrôler toute la configuration via YAML, retirez-les de la page de configuration de l'application._
 
-#### Examples for each configuration section
+#### Exemples pour chaque section de configuration
 
 - socat
   ```yaml
@@ -47,43 +47,43 @@ Configuration required to startup Zigbee2MQTT is available from the app configur
   port: /dev/serial/by-id/usb-Texas_Instruments_TI_CC2531_USB_CDC___0X00124B0018ED3DDF-if00
   ```
 
-# Configuration backup
+# Sauvegarde de la configuration
 
-The app will create a backup of your configuration.yml within your data path: `$DATA_PATH/configuration.yaml.bk`. When upgrading, you should use this to fill in the relevant values into your new config, particularly the network key, to avoid breaking your network and having to re-pair all of your devices.
-The backup of your configuration is created on app startup if no previous backup was found.
+L'application crée une sauvegarde de votre configuration.yml dans votre dossier de données : `$DATA_PATH/configuration.yaml.bk`. Lors d'une mise à jour, utilisez-la pour renseigner les valeurs pertinentes dans votre nouvelle configuration, en particulier la clé réseau, afin d'éviter de casser votre réseau et de devoir ré-appairer tous vos appareils.
+La sauvegarde de votre configuration est créée au démarrage de l'application si aucune sauvegarde précédente n'a été trouvée.
 
-# Enabling the watchdog
+# Activer le watchdog
 
-To automatically restart Zigbee2MQTT in case of a soft failure (like "adapter disconnected"), the watchdog can be used. It can be enabled by adding the following to the app configuration:
+Pour redémarrer automatiquement Zigbee2MQTT en cas de panne logicielle (comme « adapter disconnected »), le watchdog peut être utilisé. Il s'active en ajoutant ceci à la configuration de l'application :
 
 ```yaml
 watchdog: default
 ```
 
-This will use the default watchdog retry delays of 1min, 5min, 15min, 30min, 60min. Custom delays are also supported, e.g. `watchdog: 5,10,30` will start Zigbee2MQTT with the watchdog's retry delays of 5min, 10min, 30min. For more information about the watchdog, read the [docs](https://www.zigbee2mqtt.io/guide/installation/15_watchdog.html).
+Cela utilisera les délais de nouvelle tentative par défaut du watchdog : 1 min, 5 min, 15 min, 30 min, 60 min. Des délais personnalisés sont également possibles, par ex. `watchdog: 5,10,30` démarrera Zigbee2MQTT avec des délais de nouvelle tentative de 5 min, 10 min et 30 min. Pour plus d'informations sur le watchdog, consultez la [documentation](https://www.zigbee2mqtt.io/guide/installation/15_watchdog.html).
 
-# Adding Support for New Devices
+# Ajouter la prise en charge de nouveaux appareils
 
-If you are interested in adding support for new devices to Zigbee2MQTT see [How to support new devices](https://www.zigbee2mqtt.io/how_tos/how_to_support_new_devices.html).
+Si vous souhaitez ajouter la prise en charge de nouveaux appareils à Zigbee2MQTT, consultez [Comment prendre en charge de nouveaux appareils](https://www.zigbee2mqtt.io/how_tos/how_to_support_new_devices.html).
 
 # Notes
 
-- Depending on your configuration, the MQTT server config may need to include the port, typically `1883` or `8883` for SSL communications. For example, `mqtt://core-mosquitto:1883` for Home Assistant's Mosquitto app.
-- To find out which serial ports you have exposed go to **Settings → System → Hardware → ⋮ → System hardware** and type the device name in the search bar.
-- The Home Assistant `/ssl` directory is mounted read-only, so certificates kept there (for example by the Let's Encrypt addon) can be referenced both in the MQTT configuration (`key: /ssl/privkey.pem`, `cert: /ssl/fullchain.pem`) and in the frontend settings (`ssl_key` / `ssl_cert`). Because it is read-only, renewals performed by the managing addon are picked up without copying files.
+- Selon votre configuration, la config du serveur MQTT peut devoir inclure le port, généralement `1883` ou `8883` pour les communications SSL. Par exemple, `mqtt://core-mosquitto:1883` pour l'app Mosquitto de Home Assistant.
+- Pour savoir quels ports série vous avez exposés, allez dans **Paramètres → Système → Matériel → ⋮ → Matériel du système** et saisissez le nom de l'appareil dans la barre de recherche.
+- Le répertoire `/ssl` de Home Assistant est monté en lecture seule, donc les certificats qui s'y trouvent (par exemple ceux gérés par l'addon Let's Encrypt) peuvent être référencés à la fois dans la configuration MQTT (`key: /ssl/privkey.pem`, `cert: /ssl/fullchain.pem`) et dans les paramètres de l'interface (`ssl_key` / `ssl_cert`). Comme il est en lecture seule, les renouvellements effectués par l'addon gestionnaire sont pris en compte sans copier de fichiers.
 
 # Socat
 
-In some cases it is not possible to forward a serial device to the container that zigbee2mqtt runs in. This could be because the device is not physically connected to the machine at all.
+Dans certains cas, il n'est pas possible de transférer un appareil série vers le conteneur dans lequel tourne zigbee2mqtt. Cela peut être dû au fait que l'appareil n'est pas du tout branché physiquement à la machine.
 
-Socat can be used to forward a serial device over TCP to zigbee2mqtt. See the [socat man pages](https://linux.die.net/man/1/socat) for more info.
+Socat peut être utilisé pour transférer un appareil série via TCP vers zigbee2mqtt. Voir les [pages de manuel de socat](https://linux.die.net/man/1/socat) pour plus d'informations.
 
-You can configure the socat module within the socat section using the following options:
+Vous pouvez configurer le module socat dans la section socat avec les options suivantes :
 
-- `enabled` true/false to enable socat (default: false)
-- `master` master or first address used in socat command line (mandatory)
-- `slave` slave or second address used in socat command line (mandatory)
-- `options` extra options added to the socat command line (optional)
-- `log` true/false if to log the socat stdout/stderr to data_path/socat.log (default: false)
+- `enabled` true/false pour activer socat (par défaut : false)
+- `master` adresse master ou première adresse utilisée dans la ligne de commande socat (obligatoire)
+- `slave` adresse slave ou seconde adresse utilisée dans la ligne de commande socat (obligatoire)
+- `options` options supplémentaires ajoutées à la ligne de commande socat (facultatif)
+- `log` true/false pour enregistrer la sortie stdout/stderr de socat dans data_path/socat.log (par défaut : false)
 
-**NOTE:** You'll have to change both the `master` and the `slave` options according to your needs. The defaults values will make sure that socat listens on port `8485` and redirects its output to `/dev/ttyZ2M`. The zigbee2mqtt's serial port setting is NOT automatically set and has to be changed accordingly.
+**NOTE :** Vous devrez modifier à la fois les options `master` et `slave` selon vos besoins. Les valeurs par défaut font en sorte que socat écoute sur le port `8485` et redirige sa sortie vers `/dev/ttyZ2M`. Le paramètre de port série de zigbee2mqtt n'est PAS défini automatiquement et doit être modifié en conséquence.
